@@ -13,17 +13,51 @@
       apt:
         name: clamav
         state: present
+      tags: antivirus
 
     - name: Install UFW
       apt:
         name: ufw
         state: present
+      tags: firewall
 
     - name: Enable UFW
       ufw:
         state: enabled
+      tags: firewall
 
-    - name: Set UFW rules
+    - name: Set UFW rules for SSH
       ufw:
         rule: allow
-        name: OpenSSH
+        port: 22
+      tags: firewall
+
+    - name: Install Snort
+      apt:
+        name: snort
+        state: present
+      tags: ids
+
+    - name: Start Snort service
+      service:
+        name: snort
+        state: started
+      tags: ids
+
+    - name: Install cryptsetup
+      apt:
+        name: cryptsetup
+        state: present
+      tags: encryption
+
+    - name: Enable automatic updates
+      apt:
+        name: unattended-upgrades
+        state: present
+      tags: updates
+
+    - name: Configure automatic updates
+      copy:
+        src: /etc/apt/apt.conf.d/50unattended-upgrades
+        dest: /etc/apt/apt.conf.d/50unattended-upgrades
+      tags: updates
