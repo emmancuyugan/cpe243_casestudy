@@ -1,0 +1,9 @@
+[webserver]
+192.168.56.111
+192.168.56.118
+
+[applicationserver]
+192.168.56.112
+
+[databaseserver]
+192.168.56.117

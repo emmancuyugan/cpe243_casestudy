@@ -1,0 +1,29 @@
+---
+- name: SecureIT Solutions Security Setup
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install OpenSSH server
+      apt:
+        name: openssh-server
+        state: present
+
+    - name: Install ClamAV
+      apt:
+        name: clamav
+        state: present
+
+    - name: Install UFW
+      apt:
+        name: ufw
+        state: present
+
+    - name: Enable UFW
+      ufw:
+        state: enabled
+
+    - name: Set UFW rules
+      ufw:
+        rule: allow
+        name: OpenSSH
